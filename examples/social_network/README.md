@@ -53,8 +53,29 @@ at various levels of detail, in the same way you would use something like
 Google Maps to zoom in and out of an area you are interested in.
 
 ```plantuml
-!import https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/context.puml 
+@startuml
+!include https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/context.puml 
+@enduml
 ```
+
+```plantuml
+@startuml
+!include https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/container.puml
+@enduml
+```
+
+[//]: # (```plantuml)
+[//]: # (@startuml)
+[//]: # (!include https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment.puml)
+[//]: # (@enduml)
+[//]: # (```)
+
+
+[//]: # (```plantuml)
+[//]: # (@startuml)
+[//]: # (!include https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment_geo.puml)
+[//]: # (@enduml)
+[//]: # (```)
 
 ## Basic calculations
 
