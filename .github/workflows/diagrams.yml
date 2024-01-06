@@ -28,7 +28,7 @@ jobs:
       - name: Process Diagrams
         run: java -jar /opt/plantuml/plantuml-mit-1.2023.13.jar -v -tsvg -r -o "." "examples/**.puml"
       - name: Display Diagrams
-        run: pwd && ls examples/** | grep \.svg$
+        run: pwd && ls -R examples/** | grep \.svg$
       - name: Commit Diagrams
         run: |
           git config --local user.email "action@github.com"
