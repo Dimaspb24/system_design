@@ -52,10 +52,15 @@ documenting an existing codebase. It's a way to create maps of your code,
 at various levels of detail, in the same way you would use something like
 Google Maps to zoom in and out of an area you are interested in.
 
-![Context](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/context.puml)
-![Container](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/container.puml)
-![Deployment](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment.puml)
-![Geo deployment](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment_geo.puml)
+[//]: # (&fmt=svg)
+
+![Context](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/context.puml)
+
+![Container](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/container.puml)
+
+![Deployment](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment.puml)
+
+![Geo deployment](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment_geo.puml)
 
 ## Basic calculations
 
