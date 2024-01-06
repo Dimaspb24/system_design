@@ -1,0 +1,65 @@
+@startuml
+!include <C4/C4_Container>
+!include <cloudinsight/kafka>
+!include <aws/Storage/AmazonS3/AmazonS3.puml>
+!include <logos/neo4j.puml>
+!include <tupadr3/font-awesome-5/users.puml>
+!include <tupadr3/devicons2/react_original_wordmark.puml>
+!include <tupadr3/devicons2/redis_wordmark.puml>
+!include <tupadr3/devicons2/postgresql_wordmark.puml>
+!include <tupadr3/devicons2/spring_wordmark.puml>
+!include <tupadr3/devicons2/react_original.puml>
+!include <tupadr3/devicons2/redis.puml>
+!include <tupadr3/devicons2/postgresql.puml>
+!include <tupadr3/devicons2/spring.puml>
+WithoutPropertyHeader()
+
+title Deployment diagram for Social Network System
+
+AddProperty("OS", "Windows,MacOS")
+Person(customer, Customer, "A customer of the social network, with personal account", $sprite="users")
+
+AddProperty("Browser", "Chrome,Mozilla,Firefox,Safari,Edge")
+Container(webClient, "SPA", "TypeScript/React", "Manages friends, chats, messages, feed, likes", $sprite="react_original")
+
+Container(geoDNS, "Geo DNS")
+
+Container(cdn, "CDN", "CDN")
+
+AddProperty(state, stateless)
+Container(loadBalancer1, "Load Balancer 1", "Nginx")
+AddProperty(state, stateless)
+Container(loadBalancer2, "Load Balancer 2", "Nginx")
+
+AddProperty(state, stateless)
+Container(apigw1, "API Gateway", "Kong")
+AddProperty(state, stateless)
+Container(apigw2, "API Gateway", "Kong")
+
+System(core1, "Core 1")
+System(core2, "Core 2")
+
+Rel(customer, webClient, "Uses", "HTTPS")
+Rel(webClient, geoDNS, "Uses", "HTTPS")
+
+Rel(geoDNS, cdn, "Uses", "HTTPS")
+Rel(geoDNS, loadBalancer1, "Uses", "HTTPS")
+Rel(geoDNS, loadBalancer2, "Uses", "HTTPS")
+
+Rel(loadBalancer1, apigw1, "Uses", "HTTPS")
+Rel(loadBalancer2, apigw2, "Uses", "HTTPS")
+
+Rel(apigw1, core1, "Uses", "HTTPS")
+Rel(apigw2, core2, "Uses", "HTTPS")
+
+Rel(cdn, core1, "")
+Rel(cdn, core2, "")
+
+BiRel_R(core1, core2, "Post DB - [master-master with async repl]")
+BiRel_R(core1, core2, "Feedback DB - [async]")
+BiRel_R(core1, core2, "Feed DB - [no sync]")
+BiRel_R(core1, core2, "Relation DB - [master-master with async repl]")
+BiRel_R(core1, core2, "Media DB - [async repl]")
+
+SHOW_LEGEND()
+@enduml

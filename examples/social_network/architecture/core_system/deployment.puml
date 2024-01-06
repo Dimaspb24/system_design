@@ -1,0 +1,85 @@
+@startuml
+!include <C4/C4_Container>
+!include <cloudinsight/kafka>
+!include <aws/Storage/AmazonS3/AmazonS3.puml>
+!include <logos/neo4j.puml>
+!include <tupadr3/font-awesome-5/users.puml>
+!include <tupadr3/devicons2/react_original_wordmark.puml>
+!include <tupadr3/devicons2/redis_wordmark.puml>
+!include <tupadr3/devicons2/postgresql_wordmark.puml>
+!include <tupadr3/devicons2/spring_wordmark.puml>
+!include <tupadr3/devicons2/react_original.puml>
+!include <tupadr3/devicons2/redis.puml>
+!include <tupadr3/devicons2/postgresql.puml>
+!include <tupadr3/devicons2/spring.puml>
+WithoutPropertyHeader()
+
+title Deployment diagram for Social Network System
+
+AddProperty("OS", "Windows,MacOS")
+Person(customer, Customer, "A customer of the social network, with personal account", $sprite="users")
+
+AddProperty("Browser", "Chrome,Mozilla,Firefox,Safari,Edge")
+Container(webClient, "SPA", "TypeScript/React", "Manages friends, chats, messages, feed, likes", $sprite="react_original")
+
+AddProperty(state, stateless)
+Container(loadBalancer, "Load Balancer", "Nginx")
+
+AddProperty(state, stateless)
+Container(apigw, "API Gateway", "Kong")
+
+AddProperty(state, stateless)
+Container(postService, "Post API App", "Spring", "Creates, updates, deletes posts", $sprite="spring")
+AddProperty(state, stateless)
+Container(feedService, "Feed API App", "Spring", "Prepares user and friends feed of posts", $sprite="spring")
+AddProperty(state, stateless)
+Container(feedbackService, "Feedback API App", "Spring", "Handles comments and likes", $sprite="spring")
+AddProperty(state, stateless)
+Container(mediaService, "Media API App", "Spring", "Handles media saving and reading", $sprite="spring")
+AddProperty(state, stateless)
+Container(relationService, "Relation API App", "Spring", "Handles user relationships", $sprite="spring")
+
+AddProperty(replication, 2)
+SystemDb_Ext(storage, "Media storage", "Stores media data", $sprite="AmazonS3")
+
+AddProperty(partitionBy, "userId or postId")
+ContainerQueue(queue, "Post Queue", "Kafka", $sprite="kafka")
+
+AddProperty(replication, 2)
+ContainerDb(postDb, "Post DB", "Stores information about posts, hashtags", $sprite="postgresql")
+AddProperty(replication, 2)
+ContainerDb(relationDb, "Relation DB", "Stores information about user relationships", $sprite="neo4j")
+AddProperty(replication, 2)
+ContainerDb(feedDb, "Feed DB", "Redis", $sprite="redis")
+AddProperty(replication, 2)
+ContainerDb(feedbackDb, "Feedback DB", "Postgres", $sprite="postgresql")
+
+
+Rel(customer, webClient, "Uses", "HTTPS")
+
+Rel(webClient, loadBalancer, "Uses", "HTTPS")
+
+Rel(loadBalancer, apigw, "Uses", "HTTPS")
+
+Rel(apigw, postService, "Uses", "HTTPS")
+Rel(apigw, feedService, "Uses", "HTTPS")
+Rel(apigw, feedbackService, "Uses", "HTTPS")
+Rel(apigw, mediaService, "Uses", "HTTPS")
+Rel(apigw, relationService, "Uses", "HTTPS")
+
+Rel(feedService, relationService, "Uses", "HTTP")
+Rel(feedService, feedbackService, "Uses", "HTTP")
+Rel(feedService, postService, "Uses", "HTTP")
+
+Rel(mediaService, storage, "Uses", "HTTPS")
+
+Rel(postService, queue, "Push", "async, JSON/HTTPS")
+Rel(queue, feedService, "Pull", "async, JSON/HTTPS")
+
+Rel(postService, postDb, "Push", "SQL/TCP")
+Rel(feedService, feedDb, "Push", "TCP")
+Rel(feedbackService, feedbackDb, "Push", "SQL/TCP")
+Rel(relationService, relationDb, "Push", "TCP")
+
+SHOW_LEGEND()
+@enduml

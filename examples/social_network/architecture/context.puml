@@ -1,0 +1,14 @@
+@startuml
+!include <C4/C4_Context>
+
+title Context diagram for Social Network System
+
+Person(user, "User")
+System(coreSystem, "Core", "Handles actions for friends, chats, posts, comments, likes, views, notifications", $link="https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/container.puml")
+SystemDb_Ext(storage, "Media storage", "Stores media data")
+
+Rel(user, coreSystem, "User action")
+Rel_R(coreSystem, storage, "Upload/download user media")
+
+SHOW_LEGEND()
+@enduml
