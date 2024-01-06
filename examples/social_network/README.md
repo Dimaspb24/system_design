@@ -52,15 +52,13 @@ documenting an existing codebase. It's a way to create maps of your code,
 at various levels of detail, in the same way you would use something like
 Google Maps to zoom in and out of an area you are interested in.
 
-[//]: # (&fmt=svg)
+![Context](./architecture/context.svg)
 
-![Context](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/context.puml)
+![Context](./architecture/core_system/container.svg)
 
-![Container](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/container.puml)
+![Context](./architecture/core_system/deployment.svg)
 
-![Deployment](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment.puml)
-
-![Geo deployment](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.githubusercontent.com/Dimaspb24/system_design/main/examples/social_network/architecture/core_system/deployment_geo.puml)
+![Context](./architecture/core_system/deployment_geo.svg)
 
 ## Basic calculations
 
