@@ -5,6 +5,11 @@ on:
     paths:
       - '**.puml'
       - '.github/workflows/diagrams.yml'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - '**.puml'
+      - '.github/workflows/diagrams.yml'
 
 jobs:
   generate_plantuml:
@@ -22,14 +27,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Process Diagrams
         run: java -jar /opt/plantuml/plantuml-mit-1.2023.13.jar -v -tsvg -r -o "." "examples/**.puml"
-#      - name: Display Diagrams
-#        run: pwd && ls examples/** | grep \.svg$
+      - name: Display Diagrams
+        run: pwd && ls examples/** | grep \.svg$
       - name: Commit Diagrams
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m ":rocket: Adding Generated PlantUML Diagrams" || exit 0
+          git commit -m ":rocket: Generate SVG PlantUML Diagrams" || exit 0
       - name: Push Diagrams
         uses: ad-m/github-push-action@master
         with:
